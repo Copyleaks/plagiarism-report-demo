@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import {
   CopyleaksService,
   CompleteResult,
@@ -16,7 +16,10 @@ import { HttpClient } from "@angular/common/http";
   styles: []
 })
 export class AppComponent {
-  constructor(private service: CopyleaksService, private http: HttpClient) {
+  constructor(
+    @Inject(CopyleaksService) private service: CopyleaksService,
+    @Inject(HttpClient) private http: HttpClient
+  ) {
     this.http
       .get<ScanSource>("/assets/example-scan/scan-source.json")
       .subscribe(source => service.pushDownloadedSource(source));
