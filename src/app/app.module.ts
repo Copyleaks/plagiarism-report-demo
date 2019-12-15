@@ -1,12 +1,11 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { CopyleaksReportModule } from "@copyleaks/plagiarism-report";
-import { CustomMaterialModule } from "./material.module";
+import { DemoMaterialModule } from "./material.module";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,7 +13,7 @@ import { CustomMaterialModule } from "./material.module";
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,
-    CustomMaterialModule,
+    DemoMaterialModule,
     CopyleaksReportModule
   ],
   providers: [],
