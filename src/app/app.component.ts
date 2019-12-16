@@ -16,10 +16,9 @@ import { HttpClient } from "@angular/common/http";
   styles: []
 })
 export class AppComponent {
-  constructor(
-    @Inject(CopyleaksService) private service: CopyleaksService,
-    @Inject(HttpClient) private http: HttpClient
-  ) {
+  constructor(private service: CopyleaksService, private http: HttpClient) {
+    let downloadedResults = 0;
+    let totalResults = 0;
     this.http
       .get<ScanSource>("/assets/example-scan/scan-source.json")
       .subscribe(source => service.pushDownloadedSource(source));
@@ -27,22 +26,32 @@ export class AppComponent {
       .get<CompleteResult>("/assets/example-scan/complete-result.json")
       .subscribe(completeResult => {
         service.pushCompletedResult(completeResult);
-        for (const result of completeResult.results.batch) {
+        const { internet, database, batch } = completeResult.results;
+        totalResults = internet.length + database.length + batch.length;
+        for (const result of internet) {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
-            .subscribe(scanResult => service.pushScanResult(result.id, scanResult));
+            .subscribe(scanResult => {
+              service.pushScanResult(result.id, scanResult);
+              this.service.setProgress((++downloadedResults / totalResults) * 100);
+            });
         }
-        for (const result of completeResult.results.internet) {
+        for (const result of database) {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
-            .subscribe(scanResult => service.pushScanResult(result.id, scanResult));
+            .subscribe(scanResult => {
+              service.pushScanResult(result.id, scanResult);
+              this.service.setProgress((++downloadedResults / totalResults) * 100);
+            });
         }
-        for (const result of completeResult.results.internet) {
+        for (const result of batch) {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
-            .subscribe(scanResult => service.pushScanResult(result.id, scanResult));
+            .subscribe(scanResult => {
+              service.pushScanResult(result.id, scanResult);
+              this.service.setProgress((++downloadedResults / totalResults) * 100);
+            });
         }
       });
   }
-  title = "plagiarism-report-demo";
 }
