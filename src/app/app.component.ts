@@ -32,7 +32,7 @@ export class AppComponent {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
             .subscribe(scanResult => {
-              service.pushScanResult(result.id, scanResult);
+              service.pushScanResult({ id: result.id, result: scanResult });
               this.service.setProgress((++downloadedResults / totalResults) * 100);
             });
         }
@@ -40,7 +40,7 @@ export class AppComponent {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
             .subscribe(scanResult => {
-              service.pushScanResult(result.id, scanResult);
+              service.pushScanResult({ id: result.id, result: scanResult });
               this.service.setProgress((++downloadedResults / totalResults) * 100);
             });
         }
@@ -48,7 +48,7 @@ export class AppComponent {
           this.http
             .get<ScanResult>(`/assets/example-scan/results/${result.id}.json`)
             .subscribe(scanResult => {
-              service.pushScanResult(result.id, scanResult);
+              service.pushScanResult({ id: result.id, result: scanResult });
               this.service.setProgress((++downloadedResults / totalResults) * 100);
             });
         }
