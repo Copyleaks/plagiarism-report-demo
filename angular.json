@@ -3,43 +3,49 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-aio-example": {
-      "root": "",
-      "sourceRoot": "src",
+    "copyleaks-plagiarism-report-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/copyleaks-plagiarism-report-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "aot": true,
             "assets": [
+              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/material-theme.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -48,6 +54,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -56,18 +67,36 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-aio-example:build"
+            "browserTarget": "copyleaks-plagiarism-report-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-aio-example:build:production"
+              "browserTarget": "copyleaks-plagiarism-report-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-aio-example:build"
+            "browserTarget": "copyleaks-plagiarism-report-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         },
         "lint": {
@@ -75,18 +104,28 @@
           "options": {
             "tsConfig": [
               "tsconfig.app.json",
-              "tsconfig.spec.json"
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "copyleaks-plagiarism-report-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "copyleaks-plagiarism-report-demo:serve:production"
+            }
+          }
         }
       }
     }
   },
-  "defaultProject": "material-aio-example",
-  "cli": {
-    "analytics": "fbd13dd2-d1e2-4de8-9546-7d230ee27481"
-  }
+  "defaultProject": "copyleaks-plagiarism-report-demo"
 }
