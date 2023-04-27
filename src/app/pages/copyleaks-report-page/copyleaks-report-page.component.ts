@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import {
 	CopyleaksReportConfig,
 	CopyleaksService,
-} from '@copyleaks/plagiarism-report';
-import { ScanService } from 'src/app/services/copyleaks-scan.service';
+} from "@copyleaks/plagiarism-report";
+import { ScanService } from "src/app/services/copyleaks-scan.service";
 
 @Component({
-	selector: 'app-copyleaks-report-page',
-	templateUrl: './copyleaks-report-page.component.html',
-	styleUrls: ['./copyleaks-report-page.component.scss'],
+	selector: "app-copyleaks-report-page",
+	templateUrl: "./copyleaks-report-page.component.html",
+	styleUrls: ["./copyleaks-report-page.component.scss"],
 })
 export class CopyleaksReportPageComponent implements OnInit {
-	public config: CopyleaksReportConfig = {};
+	public config: CopyleaksReportConfig = {
+		contentMode: "text",
+	};
 
 	constructor(
 		private reportService: CopyleaksService,
 		private scanService: ScanService,
 		private activatedRoute: ActivatedRoute
-	) { }
+	) {}
 
 	ngOnInit(): void {
 		const scanId = this.activatedRoute.snapshot.params.scanId;
