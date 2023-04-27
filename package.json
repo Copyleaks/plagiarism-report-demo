@@ -25,6 +25,7 @@
 		"@copyleaks/plagiarism-report": "^4.1.20",
 		"@ncstate/sat-popover": "^8.0.1",
 		"@swimlane/ngx-charts": "^19.2.0",
+		"clone-deep": "^4.0.1",
 		"deep-equal": "^2.2.1",
 		"ngx-skeleton-loader": "^4.0.0",
 		"ngx-virtual-scroller": "^4.0.3",
